@@ -1,28 +1,28 @@
 <?php
 session_start();
 include('includes/config.php');
-error_reporting(0);
+// error_reporting(0);
 if (strlen($_SESSION['id']) == 0) {
     header('location:../index.php');
 } else {
-         $sector = $_SESSION['sector'];
+         // $sector = $_SESSION['sector'];
 
-         $query = mysqli_query($con, "SELECT `id`, `Firstname`, `Lastname`, `phoneNumber`, `UPI`, `EUCL_Branch`, `cell`, `Sector`, `ActiveStatus`, `addedDate` FROM `tblcitizen` WHERE Sector='$sector'");
+         $query = mysqli_query($con, "SELECT * FROM `tblcitizen` WHERE ActiveStatus='1'");
 
         // Code for restore
-    if ($_GET['citid']) {
-        $id = intval($_GET['citid']);
-        // 2 value means that: now citizen can buy cashpower
-        $query = mysqli_query($con, "UPDATE tblcitizen set ActiveStatus=2 where id='$id'");
-        echo "<script>alert('Request was now Approved');</script>";
-        echo "<script type='text/javascript'> document.location = 'citizens-list.php'; </script>";
-    }else if ($_GET['darid']) {
-        $id = intval($_GET['darid']);
-        // 0 value means that: not have permition to buy 
-        $query = mysqli_query($con, "UPDATE tblcitizen set ActiveStatus=0 where id='$id'");
-        echo "<script>alert('Request was now Approved');</script>";
-        echo "<script type='text/javascript'> document.location = 'citizens-list.php'; </script>";
-    }
+    // if ($_GET['citid']) {
+    //     $id = intval($_GET['citid']);
+    //     // 2 value means that: now citizen can buy cashpower
+    //     $query = mysqli_query($con, "UPDATE tblcitizen set ActiveStatus=2 where id='$id'");
+    //     echo "<script>alert('Request was now Approved');</script>";
+    //     echo "<script type='text/javascript'> document.location = 'citizens-list.php'; </script>";
+    // }else if ($_GET['darid']) {
+    //     $id = intval($_GET['darid']);
+    //     // 0 value means that: not have permition to buy 
+    //     $query = mysqli_query($con, "UPDATE tblcitizen set ActiveStatus=0 where id='$id'");
+    //     echo "<script>alert('Request was now Approved');</script>";
+    //     echo "<script type='text/javascript'> document.location = 'citizens-list.php'; </script>";
+    // }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -84,13 +84,13 @@ if (strlen($_SESSION['id']) == 0) {
                     <tr>
                         <th>Names</th>
                         <th>Phone Number</th>
-                        <th>File</th>
-                        <th>EUCL Branch</th>
+                        <!-- <th>File</th> -->
+                        <!-- <th>EUCL Branch</th> -->
                         <th>Cell</th>
                         <th>Sector</th>
                         <th>Date</th>
-                        <th>Status</th>
-                        <th>Action</th>
+                        <!-- <th>Status</th> -->
+                        <!-- <th>Action</th> -->
                     </tr>
                 </thead>
                 <tbody>
@@ -101,20 +101,20 @@ if (strlen($_SESSION['id']) == 0) {
                     <tr>
                         <td><?php echo $row['Firstname']."  ".$row['Lastname']; ?></td>
                         <td><?php echo $row['phoneNumber']; ?></td>
-                        <td>
+                      <!--   <td>
                             <a href="../android/<?php echo $row['UPI']; ?>">
                                 <img src="../android/<?php echo $row['UPI']; ?>" style="width: 45px;" alt="">
                             </a>
-                        </td>
-                        <td><?php echo $row['EUCL_Branch']; ?></td>
+                        </td> -->
+                        <!-- <td><?php echo $row['EUCL_Branch']; ?></td> -->
                         <td><?php echo $row['cell'];?></td>
                         <td><?php echo $row['Sector'];?></td>
                         <td><?php echo $row['addedDate'];?></td>
-                        <td><?php if( $row['ActiveStatus'] == 0){echo "<span class='btn btn- btn-sm'>Deapproved</span>";}elseif( $row['ActiveStatus'] == 2){echo "<span class='btn btn- btn-sm'>Approved</span>";}?></td>
-                                    <td> 
+                        <!-- <td><?php if( $row['ActiveStatus'] == 0){echo "<span class='btn btn- btn-sm'>Deapproved</span>";}elseif( $row['ActiveStatus'] == 2){echo "<span class='btn btn- btn-sm'>Approved</span>";}?></td> -->
+                             <!--        <td> 
                                         <a href="citizens-list.php?citid=<?php echo htmlentities($row['id']); ?>" class="btn btn-success btn-sm">YES</a>
                                         <a href="citizens-list.php?darid=<?php echo htmlentities($row['id']); ?>" class="btn btn-danger btn-sm">NO</a>
-                                    </td>
+                                    </td> -->
                     </tr>
 
                     <?php
@@ -128,13 +128,13 @@ if (strlen($_SESSION['id']) == 0) {
                     <tr>
                         <th>Names</th>
                         <th>Phone Number</th>
-                        <th>File</th>
-                        <th>EUCL Branch</th>
+                        <!-- <th>File</th> -->
+                        <!-- <th>EUCL Branch</th> -->
                         <th>cell</th>
                         <th>Sector</th>
                         <th>Date</th>
-                        <th>Status</th>
-                        <th>Action</th>
+                        <!-- <th>Status</th> -->
+                        <!-- <th>Action</th> -->
                     </tr>
                 </tfoot>
             </table>

@@ -16,10 +16,10 @@ if (isset($_POST['login'])) {
             $_SESSION['username'] = $num['username'];
             echo "<script type='text/javascript'> document.location = 'admin/index.php'; </script>";
         }else if ($numengineer>0) {
-            $_SESSION['id'] = $numengineer['id'];
-            $_SESSION['names'] = $numengineer['names'];
-            $_SESSION['username'] = $numengineer['username'];
-            $_SESSION['sector'] = $numengineer['sector'];
+            $_SESSION['sec_id'] = $numengineer['id'];
+            $_SESSION['sec_names'] = $numengineer['names'];
+            $_SESSION['sec_username'] = $numengineer['username'];
+            $_SESSION['sec_sector'] = $numengineer['sector'];
             echo "<script type='text/javascript'> document.location = 'enginner/dashboard.php'; </script>";
         }
          else {

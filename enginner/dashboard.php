@@ -3,7 +3,7 @@
 session_start();
 include('includes/config.php');
 error_reporting(0);
-if (strlen($_SESSION['id']) == 0) {
+if (strlen($_SESSION['sec_id']) == 0) {
     header('location:../index.php');
 } else {
 ?>
@@ -60,8 +60,8 @@ if (strlen($_SESSION['id']) == 0) {
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
                                                     <?php 
-                                                        $sector = $_SESSION['sector'];
-                                                    $query = mysqli_query($con, "SELECT * from tbl_request WHERE sectorIDFromUser='$sector' AND status= 1");
+                                                        $sec_id = $_SESSION['sec_id'];
+                                                    $query = mysqli_query($con, "SELECT * from tbl_request WHERE sectorIDFromUser='$sec_id' AND status= 1");
                                                     $countposts = mysqli_num_rows($query);
                                                     ?>
                                                     <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">

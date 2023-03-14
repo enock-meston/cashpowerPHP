@@ -2,10 +2,10 @@
 session_start();
 include('includes/config.php');
 // error_reporting(0);
-if (strlen($_SESSION['id']) == 0) {
+if (strlen($_SESSION['sec_id']) == 0) {
     header('location:../index.php');
 } else {
-        $sector = $_SESSION['sector'];
+        $sec_id = $_SESSION['sec_id'];
 
          
 
@@ -49,7 +49,7 @@ if (strlen($_SESSION['id']) == 0) {
     <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
     <meta name="author" content="Coderthemes">
     <!-- App title -->
-    <title><?php echo $_SESSION['names']; ?>| List of Citizens</title>
+    <title><?php echo $_SESSION['sec_sector']; ?>| List of Citizens</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -98,7 +98,7 @@ if (strlen($_SESSION['id']) == 0) {
                 <tbody>
                     <?php
                     $query = mysqli_query($con, "SELECT * FROM `tbl_request` LEFT JOIN tblcitizen 
-                    ON tbl_request.citizenID = tblcitizen.id WHERE tbl_request.sectorIDFromUser='$sector'");
+                    ON tbl_request.citizenID = tblcitizen.id WHERE tbl_request.sectorIDFromUser='$sec_id'");
                             while ($row = mysqli_fetch_array($query)) {
 
                             ?>

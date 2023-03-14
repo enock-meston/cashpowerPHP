@@ -122,7 +122,7 @@ if (strlen($_SESSION['id']) == 0) {
                                         <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Pending
                                             Requests</div>
                                         <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                            <?php $query = mysqli_query($con, "SELECT * from tblcitizen where ActiveStatus=1");
+                                            <?php $query = mysqli_query($con, "SELECT * from tbl_request where status=1");
                                             $countposts = mysqli_num_rows($query);
                                             ?>
                                             <?php echo htmlentities($countposts); ?>
@@ -162,13 +162,12 @@ if (strlen($_SESSION['id']) == 0) {
                         </div>
                     </div>
                 </div>
-
             </div>
-
         </div>
     </div>
-    </div>
-    </div>
+</div>
+</div>
+
     <script src="js/jquery.min.js"></script>
     <script src="js/popper.js"></script>
     <script src="js/bootstrap.min.js"></script>

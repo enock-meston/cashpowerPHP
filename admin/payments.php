@@ -69,7 +69,7 @@ if (strlen($_SESSION['id']) == 0) {
                     <tr>
                         <th>Citizen Names</th>
                         <th>Phone Number</th>
-                        <th>Amount</th>
+                        <th>Amount(RWf)</th>
                         <th>Transation N0</th>
                         <th>Date Of Payments</th>
                     </tr>
@@ -84,7 +84,7 @@ if (strlen($_SESSION['id']) == 0) {
                     <tr>
                         <td><?php echo $row['Firstname']."  ".$row['Lastname']; ?></td>
                         <td><?php echo $row['phoneNumber']; ?></td>
-                        <td><?php echo $row['amount']; ?></td>
+                        <td><?php echo $row['amount']."(RWf)"; ?></td>
                         <td><?php echo $row['Transactionref'];?></td>
                         <td><?php echo $row['date'];?></td>
                     </tr>
@@ -100,7 +100,7 @@ if (strlen($_SESSION['id']) == 0) {
                     <tr>
                         <th>Citizen Names</th>
                         <th>Phone Number</th>
-                        <th>Amount</th>
+                        <th>Amount(RWf)</th>
                         <th>Transation N0</th>
                         <th>Date Of Payments</th>
                     </tr>

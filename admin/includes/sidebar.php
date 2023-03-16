@@ -12,6 +12,11 @@
             <li>
                 <a href="approve.php">Approve</a>
             </li>
+
+            <li>
+                <a href="message.php">Send Message</a>
+            </li>
+
             <li class="active">
                 <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Sector
                     Engineers</a>

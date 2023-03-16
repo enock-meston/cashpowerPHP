@@ -1,12 +1,11 @@
-<?php 
-require __DIR__ . '/vendor/autoload.php'; 
+<?php
 session_start();
 include('includes/config.php');
 if (strlen($_SESSION['id']) == 0) {
     header('location:../index.php');
 } else {
+    require __DIR__ . '/vendor/autoload.php'; 
 
-    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -70,6 +69,7 @@ if (strlen($_SESSION['id']) == 0) {
                         <th>Phone Number</th>
                         <th>Date</th>
                         <th>Send Message</th>
+                        <th>Message Status</th>
 
                     </tr>
                 </thead>
@@ -90,45 +90,65 @@ if (strlen($_SESSION['id']) == 0) {
                         <td><?php echo $row['addedOn']; ?></td>
                         <td>
                             <?php
+                            $query1 = mysqli_query($con, "SELECT * FROM `messageofuser` WHERE user_id = '".$row['id']."'");
                                 if(isset($_POST['send'])){
+                                    
+                            
                                     $id = $_POST['id'];
+                                    // $_SESSION['idd'] = $id;
                                     $phone = $_POST['phone'];
                                     $name = $_POST['name'];
                                     $date = $_POST['date'];
-                                    $message = $_POST['message'];
+                                    $messageBody = $_POST['message'];
 
                                     //send message API
                                     // twilio API
+                                    
+
                                     // use Twilio\Rest\Client;
-    $sid = "ACda6ef4f03da85094644fe48f2d550802"; // Your Account SID from https://console.twilio.com
-    $token = "c9fc52654f9b3d4e782122f1201a1aeb"; // Your Auth Token from https://console.twilio.com
-    $client = new Twilio\Rest\Client($sid, $token);
-    // Use the Client to make requests to the Twilio REST API
-    $message = $client->messages->create(
-        // The number you'd like to send the message to
-        '+250783982872',
-        [
-            // A Twilio phone number you purchased at https://console.twilio.com
-            'from' => '+15076235881',
-            // The body of the text message you'd like to send
-            'body' => "Hey Enock! Good luck on the bar exam!"
-        ]
-    );
+
+                                    $sid = "ACda6ef4f03da85094644fe48f2d550802"; // Your Account SID from https://console.twilio.com
+                                    $token = "3e2c1c25ef8a41ccc6019163c1f1b750"; // Your Auth Token from https://console.twilio.com
+                                    $client = new Twilio\Rest\Client($sid, $token);
+
+                                    // Use the Client to make requests to the Twilio REST API
+                                    $message = $client->messages->create(
+                                        // The number you'd like to send the message to
+                                        "+25$phone",
+                                        [
+                                            // A Twilio phone number you purchased at https://console.twilio.com
+                                            'from' => '+15076235881',
+                                            // The body of the text message you'd like to send
+                                            'body' => "Hello Dear Sir/Madam! , $name  $messageBody Good luck on the bar exam!"
+                                        ]
+                                    );
 
 
-    if ($message) {
-        echo "<script>alert('Message sent successfully');</script>";
-
-    }else {
-        echo "<script>alert('Message not sent');</script>";
-    }
-
+                                    if ($message) {
+                                        //check if message is sent
+                                        $check = mysqli_query($con, "SELECT * FROM `messageofuser` WHERE user_id = '".$row['id']."'");
+                                        if (mysqli_num_rows($check) > 0) {
+                                            echo "<script>alert('Message already sent');</script>";
+                                        }else {
+                                          $query= mysqli_query($con, "INSERT INTO `messageofuser`(`user_id`,`message`) VALUES ('$id','$messageBody')");
+                                        
+                                       if ($query) {
+                                            echo "<script>alert('Message sent successfully');</script>";
+                                            echo "<script>window.location.href='message.php'</script>";
+                                        }else {
+                                            echo "<script>alert('Message not Saved');</script>";
+                                        }
+                                        }
+                                    }else {
+                                        echo "<script>alert('Message not sent');</script>";
+                                    }
+                                    
                                 }
                             ?>
                             <!-- form -->
                             <form method="post">
                                 <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
-                                <input type="hidden" name="phone" value="<?php echo $row['phoneNumber']; ?>">
+                                <input type="text" name="phone" value="<?php echo $row['phoneNumber']; ?>">
                                 <input type="hidden" name="name"
                                     value="<?php echo $row['Firstname']."-".$row['Lastname']; ?>">
                                 <input type="hidden" name="date" value="<?php echo $row['addedOn']; ?>">
@@ -137,6 +157,18 @@ if (strlen($_SESSION['id']) == 0) {
                                 <button type="submit" name="send" class="btn btn-primary">Send Message</button>
                             </form>
                         </td>
+                        <td>
+                            <?php
+                                
+                                
+                                $count = mysqli_num_rows($query1);
+                                if($count > 0){
+                                    
+                                    echo "<span class='badge badge-success'>Message Sent</span>";
+                                }else {
+                                    echo "<span class='badge badge-danger'>Message Not Sent</span>";
+                                }
+                            ?>
                     </tr>
 
                     <?php
